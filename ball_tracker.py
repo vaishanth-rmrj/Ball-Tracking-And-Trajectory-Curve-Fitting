@@ -20,6 +20,8 @@ def get_ball_trajectory(video_path):
 
     trajectory_pos = []
 
+    save_img_array = []
+
     while (ball_vid_capture):
         _, frame = ball_vid_capture.read()
 
@@ -40,7 +42,7 @@ def get_ball_trajectory(video_path):
                 if radius > 10:
                     cv2.circle(frame_resized, (int(x), int(y)), int(radius), (255,255,0), 2)
             
-            
+            save_img_array.append(frame_resized)
             cv2.imshow("Frame", frame_resized)
             cv2.imshow("Mask", mask)
             if cv2.waitKey(150) & 0xFF == ord('q'):
@@ -55,6 +57,11 @@ def get_ball_trajectory(video_path):
         for pos in trajectory_pos:
             writer.writerow(pos)
 
+    out = cv2.VideoWriter(storage_file_name+'.mp4',cv2.VideoWriter_fourcc(*'DIVX'), 15, (600, 600))
+ 
+    for i in range(len(save_img_array)):
+        out.write(save_img_array[i])
+    out.release()
 
     ball_vid_capture.release()
     cv2.destroyAllWindows()
