@@ -1,4 +1,4 @@
-# ball-tracking-and-trajectory-curve-fitting
+# Ball Tracking and TrajectoryCurve Fitting
 A python project using OpenCv to track a ball and fit a curve to find its trajectory.
 
 ## Results:
